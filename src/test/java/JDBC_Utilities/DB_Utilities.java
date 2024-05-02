@@ -1,9 +1,10 @@
-package Features.JDBC;
+package JDBC_Utilities;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class JDBCParent {
+public class DB_Utilities {
+
     public static Connection baglanti;
     public static Statement sorguEkrani;
 
@@ -59,28 +60,26 @@ public class JDBCParent {
 
     }
 
-    public static void DBConnectionOpen()
-    {
-        String url = "jdbc:mysql://db-technostudy.ckr1jisflxpv.us-east-1.rds.amazonaws.com/employees";
+    public static void DBConnectionOpen() {
+
+        String url = "jdbc:mysql://db-technostudy.ckr1jisflxpv.us-east-1.rds.amazonaws.com/sakila";
         String username = "root";
         String password = "'\"-LhCB'.%k[4S]z";
 
         try {
             baglanti = DriverManager.getConnection(url, username, password);
             sorguEkrani = baglanti.createStatement();
-        }
-        catch(Exception ex)
-        {
+        } catch (Exception ex) {
             System.out.println("ex.getMessage() = " + ex.getMessage());
         }
     }
 
-    public static void DBConnectionClose()
-    {
+    public static void DBConnectionClose() {
+
         try {
             baglanti.close();
         } catch (SQLException e) {
-            System.out.println("ex.getMessage() = " + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 }
